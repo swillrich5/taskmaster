@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Task
 
 def index(request):
-    return HttpResponse("<h1>This is my Task Management App!<h1>")
+    task_list = Task.objects.all()
+    return render(request, "tasks/task/list.html", {'task_list': task_list})
 
 # Create your views here.
