@@ -2,17 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Tasks(models.Model):
+class Task(models.Model):
 
     class Status(models.TextChoices):
         UNASSIGNED = 'UN', 'Unassigned'
         INPROGRESS = 'IP', 'In Progress'
         CLOSED = 'CL', 'Closed'
 
-    class Status(models.TextChoices):
+    class Priority(models.TextChoices):
         HIGH = 'HI', 'High'
         MEDIUM = 'MD', 'Medium'
-        LOW = 'LO', 'LOW'
+        LOW = 'LO', 'Low'
 
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50)
@@ -24,11 +24,11 @@ class Tasks(models.Model):
                               choices=Status.choices,
                               default=Status.UNASSIGNED)
     priority = models.CharField(max_length=2,
-                                choices=Status.choices,
-                                default=Status.LOW)
+                                choices=Priority.choices,
+                                default=Priority.LOW)
     assigned_to = models.CharField(max_length=50)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     
     class Meta:
         ordering = ['-priority']
